@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <title>Tiles - Ser Hackathon 5</title>
-  </head>
+<head>
+<title>Tiles - Ser Hackathon 5</title>
+<style>
+  body{
+    background-color : #f0efef;
+    max-width: 70%;
+    margin:auto;
+  }
+  canvas{
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: #b8b8b8;
+  }
+  .grid_fields{
+    max-width: 35%;
+    max-height: fit-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .gridputs{
+  }
+</style>
+<script type ="text/javascript" src="script.js"></script>
+</head>
 <body>
-  Hello :D
+  <p>Hello :D, This will be our grid we can basically put things in here yay :D</p>
+  <!-- TODO remove border added for visualization -->
+  <div class="grid_fields" style="border: 1px solid black">
+    Enter grid's width:
+    <input type="text" id="grid-width" class="gridputs">
+  </div>
+  <div class="grid_fields">
+    Enter grid's height:
+    <input type="text" id="grid-height" class="gridputs">
+  </div>
+
   <div id="canvas_div">
     <canvas id="canvas">
       
