@@ -1,5 +1,5 @@
-# Project skeleton
-An example of a Hackathon project skeleton
+# Starting out 
+This is Angi's and Lia's Hackathon submission. Let's try our best! :D
 
 ## About
 
