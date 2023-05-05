@@ -25,7 +25,27 @@
   .form input[type="number"] {
      width: 50px;
   }
+  .grid_square{
+    width: 25px;
+    height: 25px;
+    margin: 3px;
+  }
+  .grid{
+    /* background-color: #b8b8b8; */
+  }
+  .grid td{
+    width: 25px;
+    height: 25px;
+    margin: 4px;
+  }
+  .grid .empty{
+    background-color: rgb(255, 255, 255);
+  }
+  .grid .hole{
+    background-color: black;
+  }
 </style>
+
 <script type ="text/javascript" src="script.js"></script>
 </head>
 <body>
@@ -42,20 +62,12 @@
   <!-- <input type="button" value="Generate Grid" id = "gridDraw" > -->
   <button onclick = "drawGrid()">Generate Grid</button>
 </div>
-<!--   
-  <div class="grid_fields" style="border: 1px solid black">
-    Enter grid's width:
-    <input type="number" min="1"  id="grid-width" class="gridputs">
-  </div>
-  <div class="grid_fields">
-    Enter grid's height:
-    <input type="number" id="grid-height" class="gridputs">
-  </div> -->
 
-  <div id="canvas_div">
-    <canvas id="canvas">
-      
-    </canvas>
-  </div>
+<table id="grid1" class="grid"></table>
+
+<div> <button onclick = "printGrid()">Grid String</button></div>
+<div id="gridString">
+ 
+</div>
 </body>
 </html>

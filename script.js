@@ -1,54 +1,60 @@
-// Defining the square's dimensions
-// Will later be calculated as a percentage of the total grid area etc
-const square_length = 25;
-const margin = 4;
-const unit = margin+square_length;
-// Draws our unit square on the canvas context with it's upper-left edge on the x,y coordinates
-function drawSquare(ctx,x,y,c='white'){
-  ctx.fillStyle='white';
-  ctx.strokeRect(x,y,square_length,square_length);
-}
 
-const gridDraw = document.getElementById("gridDraw");
+let darray = [];
 
 function drawGrid(){
+  darray =[]; 
   // get grid dimensions
   const gridw = document.getElementById("gridw").value
   const gridh = document.getElementById("gridh").value
-
+  
   // reset the canvas
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const grid = document.getElementById('grid1');
+  grid.innerHTML="";
+  for(let y=0; y <=gridh ; y++){
+    let tr = grid.appendChild(document.createElement('tr'));
+    let row =[];
 
-  // ctx.fillStyle='white'
-  // ctx.fillRect(0,0,unit,unit*gridh);
-  // ctx.fillRect(0,0,unit*gridw,unit);
+    for(let x=0; x <=gridw; x++){
 
-  // Draw the squares in the grid
-  ctx.font = "12px serif";
-  ctx.fillStyle='white';
-  for(let x = 1; x < gridw ; x++)
-  {
-    for(let y = 1; y<gridh; y++)
-    {
-      ctx.fillRect(x*unit,y*unit,square_length,square_length)
+      let cell = tr.appendChild(document.createElement('td'));
+
+      // draws coordinates
+      if (x*y==0){
+        cell.innerHTML = x+y;
+      }
+      // makes the cells empty
+      else{
+        cell.className = 'empty';
+        cell.addEventListener('click',()=>(addHole(cell,x,y)))
+        row.push('E');
+      }
     }
 
+    darray.push(row);
   }
+  //  let table = document.getElementById("grid1");
+  //  console.log(grid);
+  darray.shift()
+  console.log(darray);
+  return grid;
 }
 
-// gridDraw.addEventListener('click',drawGrid);
+function addHole(cell,x,y){
+  cell.className='hole';
+  darray[y-1][x-1] = 'H';
+  cell.removeEventListener('click',()=>(addHole(cell,x,y)));
+  cell.addEventListener('click',()=>(emptyBox(cell,x,y)))
+}
 
+function emptyBox(cell,x,y){
+  cell.className = 'empty';
+  darray[y-1][x-1] = 'E';
+  cell.removeEventListener('click',()=>(emptyBox(cell,x,y)))
+  cell.addEventListener('click',()=>(addHole(cell,x,y)))
+}
 
-// if (canvas.getContext){
-//   const ctx = canvas.getContext("2d");
+function printGrid(){
+  const gridS = document.getElementById("gridString");
 
-//   ctx.fillStyle = 'white';
-//   ctx.fillRect(0,0,margin,margin);
-
-// }
-
-// test script
-// const ctx = document.getElementById("canvas").getContext("2d");
-// drawSquare(ctx,0,0);
+  gridS.innerHTML = darray.map( x=>x.join("") ).join(" ");
+}
