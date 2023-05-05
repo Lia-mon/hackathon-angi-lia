@@ -20,6 +20,10 @@
     margin-bottom: 5px;
   }
   .gridputs{
+    overflow-x: scroll;
+  }
+  .form input[type="number"] {
+     width: 50px;
   }
 </style>
 <script type ="text/javascript" src="script.js"></script>
@@ -27,14 +31,23 @@
 <body>
   <p>Hello :D, This will be our grid we can basically put things in here yay :D</p>
   <!-- TODO remove border added for visualization -->
+
+  <div class="form">
+    <label for="guessField">Width: </label>
+    <input type="number" min="1" max="100" required id="guessField" class="guessField">
+    <label for="guessField">Height: </label>
+    <input type="number" min="1" max="100" required id="guessField" class="guessField">
+  </div>
+
+<!--   
   <div class="grid_fields" style="border: 1px solid black">
     Enter grid's width:
-    <input type="text" id="grid-width" class="gridputs">
+    <input type="number" min="1"  id="grid-width" class="gridputs">
   </div>
   <div class="grid_fields">
     Enter grid's height:
-    <input type="text" id="grid-height" class="gridputs">
-  </div>
+    <input type="number" id="grid-height" class="gridputs">
+  </div> -->
 
   <div id="canvas_div">
     <canvas id="canvas">
