@@ -1,4 +1,7 @@
 :root{
+  --cell-size: 25px;
+  /* --cell-margin:4px; */
+  --cell-font:12px;
   --F: #001fc4
   --I: #9c1516
   --L: #efee29

@@ -2,6 +2,7 @@
 <html lang="en-US">
 <head>
 <title>Tiles - Ser Hackathon 5</title>
+<link rel="stylesheet" href="stylesheet.css">
 <style>
   body{
     background-color : #f0efef;
@@ -25,24 +26,25 @@
   .form input[type="number"] {
      width: 50px;
   }
-  .grid_square{
-    width: 25px;
-    height: 25px;
-    margin: 3px;
-  }
   .grid{
     /* background-color: #b8b8b8; */
   }
   .grid td{
-    width: 25px;
-    height: 25px;
-    margin: 4px;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: var(--cell-font);
+    /* margin: var(--cell-margin); */
   }
   .grid .empty{
     background-color: rgb(255, 255, 255);
   }
   .grid .hole{
     background-color: black;
+  }
+  .checkboxes{
+    width:10em;
+    height: 10em;
+
   }
 </style>
 
@@ -59,8 +61,17 @@
     <input type="number" min="1" max="100" required id="gridh" class="numberField">
   </div>
 <div>
+<br>
+
+<div>
+  <label for="c_size">Cell Size:</label>
+  <input type="number" min="10" max="100" required id="c_size" class="numberField">
+  <button onclick = "updateSize()">Resize</button>
+</div>
+
+<br>
   <!-- <input type="button" value="Generate Grid" id = "gridDraw" > -->
-  <button onclick = "drawGrid()">Generate Grid</button>
+ <button onclick = "drawGrid()">Generate Grid</button>
 </div>
 
 <table id="grid1" class="grid"></table>
@@ -69,5 +80,31 @@
 <div id="gridString">
  
 </div>
+
+<br>
+<div>Select Shapes to use:</div>
+<input type="checkbox" onclick="toggle(this);">Select All Shapes
+<table class="checkboxes">
+  <tr>
+    <td>F<input type="checkbox" id="checkFshape" name="checkFshape" value="checkF"></td>
+    <td>I<input type="checkbox" id="checkIshape" name="checkIshape" value="checkI"></td>
+    <td>L<input type="checkbox" id="checkLshape" name="checkLshape" value="checkL"></td>
+  </tr>
+  <tr>
+    <td>N<input type="checkbox" id="checkNshape" name="checkNshape" value="checkN"></td>
+    <td>P<input type="checkbox" id="checkPshape" name="checkPshape" value="checkP"></td>
+    <td>T<input type="checkbox" id="checkTshape" name="checkTshape" value="checkT"></td>
+  </tr>
+  <tr>
+    <td>U<input type="checkbox" id="checkUshape" name="checkUshape" value="checkU"></td>
+    <td>V<input type="checkbox" id="checkVshape" name="checkVshape" value="checkV"></td>
+    <td>W<input type="checkbox" id="checkWshape" name="checkWshape" value="checkW"></td>
+  </tr>
+  <tr>
+    <td>X<input type="checkbox" id="checkXshape" name="checkXshape" value="checkX"></td>
+    <td>Y<input type="checkbox" id="checkYshape" name="checkYshape" value="checkY"></td>
+    <td>Z<input type="checkbox" id="checkZshape" name="checkZshape" value="checkZ"></td>
+  </tr>
+</table>
 </body>
 </html>
