@@ -61,6 +61,14 @@ function printGrid(){
   gridS.innerHTML = darray.map( x=>x.join("") ).join(" ");
 }
 
+function printArr(a){
+  return a.map( x=>x.join("") ).join(" ");
+}
+
+function readArr(str){
+  return str.split(" ").map( e=>e.split(""));
+}
+
 // rorate clockwise 90 degrees 
 function rotateR(twodarray){
 
@@ -172,28 +180,35 @@ function fillShapeTable(){
 
 }
 
-function generatePermutations(s){
-  list = [];
-  ogname = s.name;
+// Basically there's 8 different permutations, we generate all 8 and then
+// use set to reduce to unique ones
+// Uses a set to check permutations cause I am lazy :)
+// it was a lot more trouble than it was worth :D
+function generatePermutations(shp){
+  
+  s = new Set();
+  ogname = shp.name;
 
-  s.name = `${ogname}0`
+  ogarr = shp.arr;
+  fliparr = flipX(ogarr);
 
-  flipped = s;
-  flipped.name =  `${ogname}1`;
-  flipped.arr = flipX(s.arr);
+  s.add(printArr(ogarr));
+  s.add(printArr(fliparr));
+  for(let i = 0; i< 3; i++)
+  { 
+    ogarr = rotateR(ogarr);
+    fliparr = rotateR(fliparr);
 
-  list.push(s);
-  list.push(flipped);
+    s.add(printArr(ogarr));
+    s.add(printArr(fliparr));
+  }
+  let i = 0;
+  let result = []
+  s.forEach(element => {
+    result.push(new Shape(`${ogname}${i}`,readArr(element)));
+    i++;
+  });
 
-  // for(let i = 0 ; i < 3 ; i++){
-  //   shape.name = `${ogname}${2*i+2}`;
-  //   shape.arr = rotateR(shape.arr);
-  //   flipped.name =  `${ogname}${2*i+3}`;
-  //   flipped.arr = rotateR(shape.arr) ;
-  //   s.push(shape);
-  //   s.push(flipped);
-
-  // }
-
-  return list;
+  return result;
 }
+

@@ -1,14 +1,14 @@
 // import * as myLib from "shapes.js"
 
 class Shape {
-  constructor(name, sh_arr) {
+  constructor(name, arr) {
       this.name = name;
-      this.sh_arr = sh_arr;
+      this.arr = arr;
   }
 
 }
 
-function s(name) {
+function shape(name) {
   let arr = [];
   switch (name) {
       case "F":
@@ -173,7 +173,7 @@ constructor(x,y) {
 
 let wcanvas = new Canvas(1,1) ;
 let darray = [];
-let shownShape = s('L');
+let shownShape = shape('L');
 
 function drawGrid(){
   darray =[]; 
@@ -342,17 +342,17 @@ function drawShape(gshape){
  // reset the canvas
  const grid = document.getElementById('shapeDraw');
  grid.innerHTML="";
- gridh = gshape.sh_arr.length;
- gridw = gshape.sh_arr[0].length;
+ gridh = gshape.arr.length;
+ gridw = gshape.arr[0].length;
 
  for(let y=0; y <gridh ; y++){
    let tr = grid.appendChild(document.createElement('tr'));
    for(let x=0; x <gridw; x++){
 
      let cell = tr.appendChild(document.createElement('td'));
-     console.log(gshape.sh_arr[y][x]);
+     console.log(gshape.arr[y][x]);
 
-     if(gshape.sh_arr[y][x]== 1){
+     if(gshape.arr[y][x]== 1){
       cell.style.backgroundColor = 'var(--' + gshape.name +')';
      }
      
@@ -363,14 +363,14 @@ function drawShape(gshape){
 
 function redrawShape(f)
 {
-  shownShape.sh_arr = f(shownShape.sh_arr);
+  shownShape.arr = f(shownShape.arr);
   drawShape(shownShape)
 }
 // drawShape(shownShape);
 
 function fillShapeTable(){
 
-  shownShape = s(document.getElementById("shapes").value);
+  shownShape = shape(document.getElementById("shapes").value);
   drawShape(shownShape);
 }
 // QUESTION A4
@@ -382,9 +382,9 @@ function findAllPositions(s,canvas){
   const width = canvas.width;
   const height = canvas.height;
 
-  const sx = s.sh_arr[0].length;
-  const sy = s.sh_arr.length;
-  const shape_a = s.sh_arr;
+  const sx = s.arr[0].length;
+  const sy = s.arr.length;
+  const shape_a = s.arr;
   let flag = true;
 
   // let initx =0;
