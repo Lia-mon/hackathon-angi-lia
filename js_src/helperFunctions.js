@@ -39,6 +39,14 @@ function drawGrid(){
   return grid;
 }
 
+function toggle(source) {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i] != source)
+          checkboxes[i].checked = source.checked;
+  }
+}
+
 function addHole(cell,x,y){
   cell.className='hole';
   darray[y-1][x-1] = 'H';
@@ -140,6 +148,7 @@ async function timeFunction(f){
   await f();
 
   const end = performance.now();
+  console.log(`Execution time: ${end - start} ms`);
 
   return (`Execution time: ${end - start} ms`) ;
 }
@@ -207,6 +216,43 @@ function generatePermutations(shp){
   s.forEach(element => {
     result.push(new Shape(`${ogname}${i}`,readArr(element)));
     i++;
+  });
+
+  //Most innefficient way to do this
+  //Copies so many times and does so many things V_V
+  const permuts = document.getElementById("permutations");
+  let m = 2;
+  let n = 2;
+  if(result.length == 1)
+  {
+    m = 1;
+    n = 1;
+  }
+  if(result.length < 3)
+  {
+    m = 2;
+    n = 1;
+  }
+  if(result.length > 4)
+  {
+      m = 4;
+      n = 2;
+  }
+  
+  
+
+  permuts.style["grid-template-columns"] = `repeat(${m}, 1fr)`
+  permuts.style["grid-template-rows"] = `repeat(${n}, 1fr)`
+
+  permuts.innerHTML = "";
+  result.forEach(e => {
+    const tbl = permuts.appendChild(document.createElement("table"))
+    tbl.style = "border : 1px solid black"
+    tbl.id = `perm${e.name}`;
+    permuts.appendChild(tbl);
+
+    const sap = {name : ogname, arr : e.arr};
+    drawShape(sap,tbl.id)
   });
 
   return result;

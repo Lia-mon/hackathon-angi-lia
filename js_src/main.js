@@ -114,3 +114,10 @@ function perimeter(genShape)
   // if it touches three squares add 2
   // touching 4 should not be possible
 }
+
+// Answers A7
+function mix(shp1,shp2,pos)
+{
+
+  
+}

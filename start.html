@@ -28,7 +28,19 @@
   .form input[type="number"] {
      width: 50px;
   }
+  .container{
+    overflow: auto;
+    width: 800px;
+    max-height: 400px;
+    white-space: nowrap;
+  }
   .grid{
+    position: sticky;
+    width: 800px;
+    max-width: min-content;
+    table-layout: fixed;
+    /* box-sizing: initial; */
+    overflow: auto;
     /* background-color: #b8b8b8; */
   }
   .grid td{
@@ -36,6 +48,13 @@
     height: var(--cell-size);
     font-size: var(--cell-font);
     /* margin: var(--cell-margin); */
+  }
+  #options{
+    display:inline-block;
+  }
+  #options > *
+  {
+    float:left;
   }
   #shapeDraw{
     /* width: calc(var(--cell-size)*6);
@@ -52,6 +71,30 @@
     /* margin: var(--cell-margin); */
   }
 
+  #permutations{
+    /* width: calc(var(--cell-size)*6);
+    height: calc(var(--cell-size)*6); */
+    background-color: white;
+    border: black 3px solid;
+    border-radius: 2px;
+    margin:auto;
+    display: grid;
+    height: fit-content;
+    width: fit-content;
+    justify-items: center;
+    align-items: center;
+  }
+  #permutations table{
+    width: max-content;
+    height:max-content;
+    margin:10%;
+  }
+  #permutations td{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: var(--cell-font);
+    /* margin: var(--cell-margin); */
+  }
   .grid .empty{
     background-color: rgb(255, 255, 255);
   }
@@ -64,7 +107,7 @@
 
   }
   #gridString{
-    overflow-x:scroll;
+    overflow-x:auto;
     white-space: nowrap;
     border:black 1px solid;
     background-color: white;
@@ -102,38 +145,61 @@
  <button onclick = "drawGrid()">Generate Grid</button>
 </div>
 
-<table id="grid1" class="grid"></table>
+<div class ='container'>
+  <table id="grid1" class="grid"></table>
+</div>
 
-<div> <button onclick = "printGrid()">Grid String</button></div>
+<div> <button onclick = "timeFunction(()=>printGrid())">Grid String</button></div>
 <div id="gridString">
  
 </div>
 
 <br>
 <div>Select Shapes to use:</div>
-<input type="checkbox" onclick="toggle(this);">Select All Shapes
-<table class="checkboxes">
+
+<input type="checkbox" onclick="toggle(this);">Select All Shapes <br>
+<div id = options>
+  <table class="checkboxes">
+    <tr>
+      <td>F<input type="checkbox" id="checkF" name="checkF"></td>
+      <td>I<input type="checkbox" id="checkI" name="checkI"></td>
+      <td>L<input type="checkbox" id="checkL" name="checkL"></td>
+    </tr>
+    <tr>
+      <td>N<input type="checkbox" id="checkN" name="checkN"></td>
+      <td>P<input type="checkbox" id="checkP" name="checkP"></td>
+      <td>T<input type="checkbox" id="checkT" name="checkT"></td>
+    </tr>
+    <tr>
+      <td>U<input type="checkbox" id="checkU" name="checkU"></td>
+      <td>V<input type="checkbox" id="checkV" name="checkV"></td>
+      <td>W<input type="checkbox" id="checkW" name="checkW"></td>
+    </tr>
+    <tr>
+      <td>X<input type="checkbox" id="checkX" name="checkX"></td>
+      <td>Y<input type="checkbox" id="checkY" name="checkY"></td>
+      <td>Z<input type="checkbox" id="checkZ" name="checkZ"></td>
+    </tr>
+  </table>
+<table>
   <tr>
-    <td>F<input type="checkbox" id="checkFshape" name="checkFshape" value="checkF"></td>
-    <td>I<input type="checkbox" id="checkIshape" name="checkIshape" value="checkI"></td>
-    <td>L<input type="checkbox" id="checkLshape" name="checkLshape" value="checkL"></td>
+    <td>
+      <input type="button" value="Solve the grid"></input>
+      <input type="button" value="Load previous data"></input>
+      <input type="button" value="Load grid from string"></input>
+      <input type="button" value="Download data"></input>
+  </td>
   </tr>
   <tr>
-    <td>N<input type="checkbox" id="checkNshape" name="checkNshape" value="checkN"></td>
-    <td>P<input type="checkbox" id="checkPshape" name="checkPshape" value="checkP"></td>
-    <td>T<input type="checkbox" id="checkTshape" name="checkTshape" value="checkT"></td>
+    <td>Time to solve: <span id="timetaken"></span></td>
   </tr>
   <tr>
-    <td>U<input type="checkbox" id="checkUshape" name="checkUshape" value="checkU"></td>
-    <td>V<input type="checkbox" id="checkVshape" name="checkVshape" value="checkV"></td>
-    <td>W<input type="checkbox" id="checkWshape" name="checkWshape" value="checkW"></td>
-  </tr>
-  <tr>
-    <td>X<input type="checkbox" id="checkXshape" name="checkXshape" value="checkX"></td>
-    <td>Y<input type="checkbox" id="checkYshape" name="checkYshape" value="checkY"></td>
-    <td>Z<input type="checkbox" id="checkZshape" name="checkZshape" value="checkZ"></td>
+    <td>
+      aaaaaaa
+    </td>
   </tr>
 </table>
+</div>
 
 <div>Show a shape
    Rotate it and what not</div>
@@ -157,12 +223,12 @@
 </div>
 <table id="shapeDraw"></table>
 <div >
-  <button onclick = "redrawShape(rotateR)">Rotate 90deg R</button>
-  <button onclick = "redrawShape(rotateL)">Rotate 90deg R</button>
-  <button onclick = "redrawShape(flipX)">Flip Vertically</button>
-  <button onclick = "redrawShape(flipY)">Flip Horizontally</button>
-  <button onclick = "generatePermutations(shownShape)">Generate all permutations</button>
+  <button onclick = "timeFunction( () => redrawShape(rotateR))">Rotate 90deg R</button>
+  <button onclick = "timeFunction( () => redrawShape(rotateL))">Rotate 90deg R</button>
+  <button onclick = "timeFunction( () =>redrawShape(flipX))">Flip Vertically</button>
+  <button onclick = "timeFunction( () =>redrawShape(flipY))">Flip Horizontally</button>
+  <button onclick = "timeFunction( () =>generatePermutations(shownShape))">Generate all permutations</button>
 </div>
-<div class="permutations"></div>
+<div id="permutations"></div>
 </body>
 </html>
