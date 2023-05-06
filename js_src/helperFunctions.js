@@ -136,22 +136,22 @@ async function timeFunction(f){
   return (`Execution time: ${end - start} ms`) ;
 }
 
-function drawShape(gshape){
+function drawShape(gshape,elemID = 'shapeDraw'){
 
   // reset the canvas
-  const grid = document.getElementById('shapeDraw');
+  const grid = document.getElementById(elemID);
   grid.innerHTML="";
-  gridh = gshape.sh_arr.length;
-  gridw = gshape.sh_arr[0].length;
+  gridh = gshape.arr.length;
+  gridw = gshape.arr[0].length;
  
   for(let y=0; y <gridh ; y++){
     let tr = grid.appendChild(document.createElement('tr'));
     for(let x=0; x <gridw; x++){
  
       let cell = tr.appendChild(document.createElement('td'));
-      // console.log(gshape.sh_arr[y][x]);
+      // console.log(gshape.arr[y][x]);
  
-      if(gshape.sh_arr[y][x]== 1){
+      if(gshape.arr[y][x]== 1){
        cell.style.backgroundColor = 'var(--' + gshape.name +')';
       }
       
@@ -161,7 +161,7 @@ function drawShape(gshape){
  }
 
  function redrawShape(f){
-  shownShape.sh_arr = f(shownShape.sh_arr);
+  shownShape.arr = f(shownShape.arr);
   drawShape(shownShape)
 }
 
@@ -169,4 +169,31 @@ function fillShapeTable(){
 
   shownShape = shape(document.getElementById("shapes").value);
   drawShape(shownShape);
+
+}
+
+function generatePermutations(s){
+  list = [];
+  ogname = s.name;
+
+  s.name = `${ogname}0`
+
+  flipped = s;
+  flipped.name =  `${ogname}1`;
+  flipped.arr = flipX(s.arr);
+
+  list.push(s);
+  list.push(flipped);
+
+  // for(let i = 0 ; i < 3 ; i++){
+  //   shape.name = `${ogname}${2*i+2}`;
+  //   shape.arr = rotateR(shape.arr);
+  //   flipped.name =  `${ogname}${2*i+3}`;
+  //   flipped.arr = rotateR(shape.arr) ;
+  //   s.push(shape);
+  //   s.push(flipped);
+
+  // }
+
+  return list;
 }

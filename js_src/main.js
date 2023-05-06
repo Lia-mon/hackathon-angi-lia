@@ -10,9 +10,9 @@ function findAllPositions(s,canvas){
   const width = canvas.width;
   const height = canvas.height;
 
-  const sx = s.sh_arr[0].length;
-  const sy = s.sh_arr.length;
-  const shape_a = s.sh_arr;
+  const sx = s.arr[0].length;
+  const sy = s.arr.length;
+  const shape_a = s.arr;
   let flag = true;
 
   // let initx =0;

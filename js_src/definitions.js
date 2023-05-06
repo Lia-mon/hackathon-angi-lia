@@ -1,7 +1,7 @@
 class Shape {
-  constructor(name, sh_arr) {
+  constructor(name, arr) {
       this.name = name;
-      this.sh_arr = sh_arr;
+      this.arr = arr;
   }
 
 }

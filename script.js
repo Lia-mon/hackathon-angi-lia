@@ -8,7 +8,7 @@ class Shape {
 
 }
 
-function shape(name) {
+function s(name) {
   let arr = [];
   switch (name) {
       case "F":
@@ -173,7 +173,7 @@ constructor(x,y) {
 
 let wcanvas = new Canvas(1,1) ;
 let darray = [];
-let shownShape = shape('L');
+let shownShape = s('L');
 
 function drawGrid(){
   darray =[]; 
@@ -370,7 +370,7 @@ function redrawShape(f)
 
 function fillShapeTable(){
 
-  shownShape = shape(document.getElementById("shapes").value);
+  shownShape = s(document.getElementById("shapes").value);
   drawShape(shownShape);
 }
 // QUESTION A4
