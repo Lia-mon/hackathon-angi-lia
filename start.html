@@ -7,7 +7,9 @@
   body{
     background-color : #f0efef;
     max-width: 60%;
-    margin:auto;
+    /* margin:auto; */
+    margin-left:auto;
+    margin-right:auto;
   }
   canvas{
     border: 2px solid black;
@@ -69,8 +71,12 @@
   }
 </style>
 
-<script type ="text/javascript" src="script.js"></script>
+<!-- <script type ="text/javascript" src="script.js"></script> -->
 <!-- <script type ="text/javascript" src="shapes.js"></script> -->
+<script src="js_src/definitions.js" defer></script>
+<script src="js_src/helperFunctions.js"defer></script>
+<script src="js_src/styling.js" defer></script>
+<script src="js_src/main.js" defer></script>
 </head>
 <body>
   <p>Hello :D, This will be our grid we can basically put things in here yay :D</p>
@@ -155,6 +161,7 @@
   <button onclick = "redrawShape(rotateL)">Rotate 90deg R</button>
   <button onclick = "redrawShape(flipX)">Flip Vertically</button>
   <button onclick = "redrawShape(flipY)">Flip Horizontally</button>
+  <button onclick = "generateOrientations(shownShape)">Generate all orientations</button>
 </div>
 </body>
 </html>

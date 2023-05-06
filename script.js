@@ -60,7 +60,7 @@ function shape(name) {
               [1,1],
               [1,0]
 
-          ];
+              ];
           return new Shape(name, arr);
           break;
 
@@ -134,10 +134,8 @@ function shape(name) {
           break;
 
       default:
-          console.log("That was an invalid letter!");
-
-          arr = [[]]             
-          ;
+          console.error("That was an invalid letter!");
+          arr = [[]];
           return new Shape("", arr);
 
 
@@ -377,7 +375,7 @@ function fillShapeTable(){
 }
 // QUESTION A4
 // Basically brute force, go through each position
-// check each cell that the shape touches
+// check each cell that the shape is on
 // if it finds a hole, moves on
 function findAllPositions(s,canvas){
   const grid = canvas.data;
