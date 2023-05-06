@@ -2,16 +2,26 @@
   --cell-size: 25px;
   /* --cell-margin:4px; */
   --cell-font:12px;
-  --F: #001fc4
-  --I: #9c1516
-  --L: #efee29
-  --N: #e719e2
-  --P: #07d4f3
-  --T: #8a8a8a
-  --U: #00e53f
-  --V: #f19a05
-  --W: #d5d5d5
-  --X: #2097b8
-  --Y: #b82082
-  --Z: #ff0011
+  --F: #001fc4;
+  --I: #9c1516;
+  --L: #efee29;
+  --N: #e719e2;
+  --P: #07d4f3;
+  --T: #8a8a8a;
+  --U: #00e53f;
+  --V: #f19a05;
+  --W: #d5d5d5;
+  --X: #2097b8;
+  --Y: #b82082;
+  --Z: #ff0011;
+}
+
+.rotate90{
+  transform : rotate(90deg);
+}
+.rotate180{
+  transform : rotate(180deg);
+}
+.rotate270{
+  transform : rotate(270deg);
 }

@@ -6,7 +6,7 @@
 <style>
   body{
     background-color : #f0efef;
-    max-width: 70%;
+    max-width: 60%;
     margin:auto;
   }
   canvas{
@@ -35,6 +35,21 @@
     font-size: var(--cell-font);
     /* margin: var(--cell-margin); */
   }
+  #shapeDraw{
+    /* width: calc(var(--cell-size)*6);
+    height: calc(var(--cell-size)*6); */
+    background-color: white;
+    border: black 3px solid;
+    border-radius: 2px;
+  }
+
+  #shapeDraw td{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: var(--cell-font);
+    /* margin: var(--cell-margin); */
+  }
+
   .grid .empty{
     background-color: rgb(255, 255, 255);
   }
@@ -46,9 +61,16 @@
     height: 10em;
 
   }
+  #gridString{
+    overflow-x:scroll;
+    white-space: nowrap;
+    border:black 1px solid;
+    background-color: white;
+  }
 </style>
 
 <script type ="text/javascript" src="script.js"></script>
+<!-- <script type ="text/javascript" src="shapes.js"></script> -->
 </head>
 <body>
   <p>Hello :D, This will be our grid we can basically put things in here yay :D</p>
@@ -106,5 +128,33 @@
     <td>Z<input type="checkbox" id="checkZshape" name="checkZshape" value="checkZ"></td>
   </tr>
 </table>
+
+<div>Show a shape
+   Rotate it and what not</div>
+<div>
+  <label for="shapes">Choose a shape:</label>
+  <select id="shapes" name="shapes">
+    <option value="F">F</option>
+    <option value="I">I</option>
+    <option value="L">L</option>
+    <option value="N">N</option>
+    <option value="P">P</option>
+    <option value="T">T</option>
+    <option value="U">U</option>
+    <option value="V">V</option>
+    <option value="W">W</option>
+    <option value="X">X</option>
+    <option value="Y">Y</option>
+    <option value="Z">Z</option>
+  </select> 
+  <input type="submit" onClick ="fillShapeTable()" value="Submit">
+</div>
+<table id="shapeDraw"></table>
+<div >
+  <button onclick = "redrawShape(rotateR)">Rotate 90deg R</button>
+  <button onclick = "redrawShape(rotateL)">Rotate 90deg R</button>
+  <button onclick = "redrawShape(flipX)">Flip Vertically</button>
+  <button onclick = "redrawShape(flipY)">Flip Horizontally</button>
+</div>
 </body>
 </html>
