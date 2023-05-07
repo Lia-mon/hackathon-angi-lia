@@ -149,7 +149,8 @@ async function timeFunction(f){
 
   const end = performance.now();
   console.log(`Execution time: ${end - start} ms`);
-
+  const tims = document.getElementById("timetaken");
+  tims.innerHTML= `${end - start} ms`;
   return (`Execution time: ${end - start} ms`) ;
 }
 
@@ -220,6 +221,14 @@ function generatePermutations(shp){
 
   //Most innefficient way to do this
   //Copies so many times and does so many things V_V
+    return result;
+}
+
+
+// Basically takes an array of the permutations as computed
+// by the generatePermutations() function
+// and draws it in a specific html element
+function drawPermutations(result){
   const permuts = document.getElementById("permutations");
   let m = 2;
   let n = 2;
@@ -239,8 +248,6 @@ function generatePermutations(shp){
       n = 2;
   }
   
-  
-
   permuts.style["grid-template-columns"] = `repeat(${m}, 1fr)`
   permuts.style["grid-template-rows"] = `repeat(${n}, 1fr)`
 
@@ -254,7 +261,5 @@ function generatePermutations(shp){
     const sap = {name : ogname, arr : e.arr};
     drawShape(sap,tbl.id)
   });
-
-  return result;
 }
 
