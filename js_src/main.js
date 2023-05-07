@@ -121,4 +121,39 @@ function mix(shp1,shp2,pos)
   
 
 }
+//answers a10
+function solve(canvas,shapes)
+{
+  chart = totalChart(canvas,shapes);
 
+  let id = "";
+  let pmatrix = [];
+  let prow = [];
+  let perms = [];
+
+  let positions = [];
+  let spath = [];
+  for(sP in shapes)
+  {
+    const s = shapes[sP];
+    perms = generatePermutations(shape(s));
+    for(permP in perms ){
+      const perm = perms[permP]
+      spath = toShapePath(perm.arr);
+      positions = findAllPositions(perm,canvas);
+      for(posP in positions)
+      {
+        const pos = positions[posP] 
+        prow = equivRow(s,spath,chart,pos);
+        pmatrix.push(prow);
+      }
+    }
+  }
+  console.log(pmatrix.length);
+  // library.solve(pmatrix);
+
+}
+
+// matrix[y][x] 
+//
+// newelem.up 

@@ -337,11 +337,12 @@ function totalChart(shapeIds,cnvs){
   let shapeChart = {};
   let i = 0;
 
-  shapeIds.forEach(s => {
+  for(s in shapeIds)
+  {
     shapeChart[s] = i;
     i++;
-  });
-
+  }
+  
   finalChart = {...shapeChart,...gridChart(cnvs,start=i)}
 
   return finalChart;

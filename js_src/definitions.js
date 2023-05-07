@@ -1,3 +1,5 @@
+// import * as Dlxlib from "./dlx/dlx.js"
+
 class Shape {
   constructor(name, arr) {
       this.name = name;
