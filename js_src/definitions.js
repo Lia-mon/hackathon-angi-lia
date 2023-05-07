@@ -144,11 +144,13 @@ function shape(name) {
 }
 
 class Canvas{
-    
+    width = 0;
+    height = 0;
+    data = [];
   // x : width
   // y : height
   // h : hole list
-    constructior(x,y)
+    constructor(x,y)
     {
         let arr = [];
         for (let i = 0; i < y ; i++) {

@@ -118,6 +118,6 @@ function perimeter(genShape)
 // Answers A7
 function mix(shp1,shp2,pos)
 {
-
   
+
 }

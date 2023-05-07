@@ -1,12 +1,12 @@
 function drawGrid(){
-  darray =[]; 
+  darray = []; 
   // get grid dimensions
   const gridw = document.getElementById("gridw").value
   const gridh = document.getElementById("gridh").value
   
   // reset the canvas
   const grid = document.getElementById('grid1');
-  grid.innerHTML="";
+  grid.innerHTML = "";
   for(let y=0; y <=gridh ; y++){
     let tr = grid.appendChild(document.createElement('tr'));
     let row =[];
@@ -32,19 +32,56 @@ function drawGrid(){
   //  let table = document.getElementById("grid1");
   //  console.log(grid);
   darray.shift()
-  // console.log(darray);
+  console.log(darray);
   wcanvas.width = darray[0].length;
   wcanvas.height = darray.length;
   wcanvas.data = darray;
   return grid;
 }
+//basically draws a given canvas on our grid
+//works in much the same way as drawGrid()
+//but doesn't create clickable holes.
+function drawCnvs(cnvs){
+  darray = [];
+  darray.push(...cnvs.data); 
+  // get grid dimensions
+  document.getElementById("gridw").value = cnvs.width
+  document.getElementById("gridh").value = cnvs.height
+  
+  // reset the grid
+  const grid = document.getElementById('grid1');
+  grid.innerHTML="";
 
-function toggle(source) {
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i] != source)
-          checkboxes[i].checked = source.checked;
+  for(let y=0; y < cnvs.height +1 ; y++){
+    let tr = grid.appendChild(document.createElement('tr'));
+
+    for(let x=0; x < cnvs.width + 1; x++){
+
+      let cell = tr.appendChild(document.createElement('td'));
+
+      // draws coordinates
+      if (x*y==0){
+        cell.innerHTML = x+y;
+      }
+      // makes the cells empty
+      else{
+        if(darray[y-1][x-1] == 'E'){
+          cell.className = 'empty';
+        }
+        else{
+          cell.style.backgroundColor = 'var(--' + darray[y-1][x-1] +')';
+        }
+      }
+    }
   }
+  //  let table = document.getElementById("grid1");
+  //  console.log(grid);
+  // console.log(darray);
+  wcanvas.width = darray[0].length;
+  wcanvas.height = darray.length;
+  wcanvas.data = darray;
+
+  return grid;
 }
 
 function addHole(cell,x,y){
@@ -73,8 +110,18 @@ function printArr(a){
   return a.map( x=>x.join("") ).join(" ");
 }
 
-function readArr(str){
+function readStr(str){
   return str.split(" ").map( e=>e.split(""));
+}
+
+function toCnvs(tdarr){
+  width = tdarr[0].length;
+  height = tdarr.length;
+
+  cnvs = new Canvas(width,height);
+  cnvs.data = tdarr;
+
+  return cnvs;
 }
 
 // rorate clockwise 90 degrees 
