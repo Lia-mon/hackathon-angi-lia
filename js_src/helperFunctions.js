@@ -395,14 +395,31 @@ function equivRow(shape_id,shape_path,chartE,pos){
     row[chartE[p]] = 1;
   });
 
-  // for(k=0; k < shape_path.length; k++)
-  // {
-  //   p[0] = pos[0] +shape_path[k][0];
-  //   p[1] = pos[1] +shape_path[k][1];
-  //   console.log("path : " + shape_path[k][0])
-  //   console.log(p);
-  //   row[chartE[p]] = 1;
-  // }
-
   return row;
+}
+
+function getShapes()
+{
+  let shapes_used = [];
+
+  s_list.forEach(e => {
+    if(document.getElementById(`check${e}`).checked)
+    {
+      shapes_used.push(e);
+    }
+  });
+  return shapes_used;
+}
+
+function powerset(array) {
+  const subsets = [[]];
+  
+  for (const el of array) {
+      const last = subsets.length-1;
+      for (let i = 0; i <= last; i++) {
+          subsets.push( [...subsets[i], el] );
+      }
+  }
+  
+  return subsets;
 }
