@@ -262,7 +262,7 @@ function generatePermutations(shp){
   let i = 0;
   let result = []
   s.forEach(element => {
-    result.push(new Shape(`${ogname}${i}`,readArr(element)));
+    result.push(new Shape(`${ogname}${i}`,readStr(element)));
     i++;
   });
 
@@ -310,3 +310,89 @@ function drawPermutations(result){
   });
 }
 
+//Charts the 2D-grid to 1D data
+//Basically enumerates each empty box
+function gridChart(cnvs,start=0){
+  let x = 0;
+  let y = 0;
+  let chart = {};
+  let empty = start;
+
+  for(x=0 ; x < cnvs.width ; x++){
+    for(y=0; y<cnvs.height; y++){
+      if(cnvs.data[y][x]=="E")
+      {
+        chart[[x,y]]=empty;
+        empty ++;
+      }
+    }
+  }
+
+  return chart;
+}
+
+//Creates a chart that assigns each 2D-grid WITH color/filled to 1D data
+//Does not simply enumerate introduces an extra bit to indicate shape id
+function totalChart(shapeIds,cnvs){
+  let shapeChart = {};
+  let i = 0;
+
+  shapeIds.forEach(s => {
+    shapeChart[s] = i;
+    i++;
+  });
+
+  finalChart = {...shapeChart,...gridChart(cnvs,start=i)}
+
+  return finalChart;
+}
+
+//Shape path
+//Basically the coordinates for where the shape exists relative to a ref point
+//the ref point is (0,0)
+function toShapePath(shape_data)
+{
+  const w = shape_data[0].length;
+  const h = shape_data.length;
+
+  let path = [];
+
+  let x = 0;
+  let y = 0;
+
+  for (x = 0 ; x < w ; x++){
+    for (y=0 ; y < h ; y++){
+      if(shape_data[y][x]=1)
+      {
+        path.push([x,y]);
+      }
+    }
+  }
+
+  return path;
+}
+
+//Gets the complete chart of a grid with possible shapes to be used
+//and uses it to assign value to a position of the given shape
+function equivRow(shape_id,shape_path,chartE,pos){
+  const cols = Object.keys(chartE).length;
+  let k = 0;
+  let row = [];
+  let p = [0,0];
+  //initialize
+  for(k=0; k < cols ; k++)
+  {
+    push.row(0);
+  }
+
+  row[chartE[shape_id]] = 1;
+  // row[chartE[pos]] = 1;
+
+  shape_path.forEach(path => {
+    p[0] = pos[0]+path[0];
+    p[1] = pos[1]+path[1];
+    row[chart[p]] = 1;
+  });
+
+  return row;
+}
