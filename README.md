@@ -2,7 +2,7 @@
 This is Angi's and Lia's Hackathon submission. Let's try our best! :D
 
 # Live test
-Open up [start.html](../master/start.html)
+Open up [start.html](../master/start.html) with any modern browser. Make sure you have all the files.
 
 # Algorithm explanation
 This project attempts to solve the problem by reducing to an exact cover problem. The exact cover is thus generated and then from it we implement Donald Knuth's Dancing Link algorithm to generate all the solutions.
