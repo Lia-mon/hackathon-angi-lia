@@ -362,7 +362,7 @@ function toShapePath(shape_data)
 
   for (x = 0 ; x < w ; x++){
     for (y=0 ; y < h ; y++){
-      if(shape_data[y][x]=1)
+      if(shape_data[y][x]==1)
       {
         path.push([x,y]);
       }
@@ -374,6 +374,8 @@ function toShapePath(shape_data)
 
 //Gets the complete chart of a grid with possible shapes to be used
 //and uses it to assign value to a position of the given shape
+// 
+// example: equivRow('P',toShapePath(shape('P').arr),totalChart(s_list,wcanvas),[0,0])
 function equivRow(shape_id,shape_path,chartE,pos){
   const cols = Object.keys(chartE).length;
   let k = 0;
@@ -382,17 +384,25 @@ function equivRow(shape_id,shape_path,chartE,pos){
   //initialize
   for(k=0; k < cols ; k++)
   {
-    push.row(0);
+    row.push(0);
   }
 
   row[chartE[shape_id]] = 1;
-  // row[chartE[pos]] = 1;
 
   shape_path.forEach(path => {
     p[0] = pos[0]+path[0];
     p[1] = pos[1]+path[1];
-    row[chart[p]] = 1;
+    row[chartE[p]] = 1;
   });
+
+  // for(k=0; k < shape_path.length; k++)
+  // {
+  //   p[0] = pos[0] +shape_path[k][0];
+  //   p[1] = pos[1] +shape_path[k][1];
+  //   console.log("path : " + shape_path[k][0])
+  //   console.log(p);
+  //   row[chartE[p]] = 1;
+  // }
 
   return row;
 }

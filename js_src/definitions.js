@@ -5,7 +5,7 @@ class Shape {
   }
 
 }
-
+const s_list = ["F","I","L","N","P","T","U","V","W","X","Y","Z"]
 function shape(name) {
   let arr = [];
   switch (name) {
