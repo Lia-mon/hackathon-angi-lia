@@ -424,3 +424,107 @@ function powerset(array) {
   
   return subsets;
 }
+
+function initialLinkedStructure(pmatrix){
+  const height = pmatrix.length;
+  const width = pmatrix[0].length;
+
+  let x = 0;
+  let y = 0;
+  let o = null;
+  let p = null;
+
+  let omatrix = []
+  //Initial Linked Objects 4-Linked Lists
+  for(x = 0 ; x < w ; x++)
+  {
+    for(y=0;y < h ; y++)
+    {
+      const o = new DataObject();
+      // if(pmatrix[y][x]==1)
+      // {
+      //   o = new DataObject();
+
+      //   omatrix.push(o);
+      // }
+      omatrix.push(o);
+    }
+  }
+
+  for(x = 1 ; x < w-1 ; x++)
+  {
+    for(y=1 ; y < h-1 ; y++)
+    {
+
+      omatrix[y][x].up = omatrix[y-1][x];
+
+      omatrix[y][x].down = omatrix[y-1][x];
+
+      omatrix[y][x].left = omatrix[y][x-1];
+
+      omatrix[y][x].right = omatrix[y][x+1];
+    }
+  }
+
+  for(x=1; x < w ; x++)
+  {
+    omatrix[0][x].left = omatrix[0][x-1];
+
+    omatrix[h-1][x].right = omatrix[y][x+1];
+
+    omatrix[0][x].up = omatrix[h-1][x];
+
+    omatrix[h-1][x].down = omatrix[0][x];
+
+  }
+
+  for(y=1; y < h ; y++)
+  {
+    omatrix[y][0].left = omatrix[y][w-1];
+
+    omatrix[y][w-1].right = omatrix[y][0];
+
+    omatrix[y][0].up = omatrix[y-1][0];
+    
+    omatrix[y][w-1].down = omatrix[y-1][0];
+
+
+  }
+
+  // edge cases 4 points uncovered
+  omatrix[0][0].left = omatrix[0][w-1];
+  omatrix[0][0].right = omatrix[0][1];
+  omatrix[0][0].up = omatrix[h-1][0];
+  omatrix[0][0].down = omatrix[1][0];
+
+  omatrix[h-1][0].left = omatrix[h-1][w-1];
+  omatrix[h-1][0].right = omatrix[h-1][1];
+  omatrix[h-1][0].up = omatrix[h-2][0];
+  omatrix[h-1][0].down = omatrix[0][0];
+
+  omatrix[h-1][w-1].left = omatrix[h-1][w-2];
+  omatrix[h-1][w-1].right = omatrix[h-1][0];
+  omatrix[h-1][w-1].up = omatrix[h-2][w-1];
+  omatrix[h-1][w-1].down = omatrix[0][w-1];
+
+  omatrix[0][w-1].left = omatrix[0][w-2];
+  omatrix[0][w-1].right = omatrix[0][0];
+  omatrix[0][w-1].up = omatrix[h-1][w-1];
+  omatrix[0][w-1].down = omatrix[1][w-1];
+
+   
+  //Disconnect 0 elements
+  for(x = 0 ; x < w ; x++)
+  {
+    for(y=0;y < h ; y++)
+    {
+      if(pmatrix[y][x]==0)
+      {
+        // pmatrix[y][x].left.left
+      }
+      
+    }
+  }
+  
+
+}
