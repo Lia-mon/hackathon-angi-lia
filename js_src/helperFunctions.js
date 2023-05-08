@@ -279,20 +279,17 @@ function drawPermutations(result){
   const permuts = document.getElementById("permutations");
   let m = 2;
   let n = 2;
-  if(result.length == 1)
-  {
+  if(result.length == 1){
     m = 1;
     n = 1;
   }
-  if(result.length < 3)
-  {
+  if(result.length < 3){
     m = 2;
     n = 1;
   }
-  if(result.length > 4)
-  {
-      m = 4;
-      n = 2;
+  if(result.length > 4){
+     m = 4;
+     n = 2;
   }
   
   permuts.style["grid-template-columns"] = `repeat(${m}, 1fr)`
@@ -337,9 +334,8 @@ function totalChart(shapeIds,cnvs){
   let shapeChart = {};
   let i = 0;
 
-  for(s in shapeIds)
-  {
-    shapeChart[s] = i;
+  for(sI in shapeIds){
+    shapeChart[shapeIds[sI]] = i;
     i++;
   }
   
@@ -363,10 +359,8 @@ function toShapePath(shape_data)
 
   for (x = 0 ; x < w ; x++){
     for (y=0 ; y < h ; y++){
-      if(shape_data[y][x]==1)
-      {
-        path.push([x,y]);
-      }
+      if(shape_data[y][x]==1)      
+        path.push([x,y]);  
     }
   }
 
@@ -383,8 +377,7 @@ function equivRow(shape_id,shape_path,chartE,pos){
   let row = [];
   let p = [0,0];
   //initialize
-  for(k=0; k < cols ; k++)
-  {
+  for(k=0; k < cols ; k++){
     row.push(0);
   }
 
@@ -399,6 +392,45 @@ function equivRow(shape_id,shape_path,chartE,pos){
   return row;
 }
 
+function unchartedSol(solution,canvas,shapeIds,chart){
+
+  const width = canvas.width;
+  const height = canvas.height;
+  const solcnvs= new Canvas(width,height);
+  const arr = [];
+
+  for(let y = 0 ; y < height ; y++){
+    const newr = [];
+    for(let x = 0 ; x < width; x++){
+      newr.push('H');
+    }
+    arr.push(newr);
+  }
+  const keys = Object.keys(chart);
+
+  solution.forEach(r=>{
+    console.log(r);
+    let i =0;
+    let letter = `E`;
+    for(i = 0 ; i < shapeIds.length ; i++){
+      if(r[i] == 1){
+        letter = keys[i];
+      }
+    }
+    for(i=shapeIds.length ; i < r.length ; i++){
+      if(r[i]==1){
+        const xy = keys[i].split(",");
+        arr[xy[1]][xy[0]] = letter;
+      }
+    }
+  }
+  )
+  console.log(solcnvs)
+  solcnvs.data = arr;
+
+  return solcnvs;
+}
+
 function getShapes()
 {
   let shapes_used = [];
@@ -409,6 +441,7 @@ function getShapes()
       shapes_used.push(e);
     }
   });
+
   return shapes_used;
 }
 
@@ -423,108 +456,4 @@ function powerset(array) {
   }
   
   return subsets;
-}
-
-function initialLinkedStructure(pmatrix){
-  const height = pmatrix.length;
-  const width = pmatrix[0].length;
-
-  let x = 0;
-  let y = 0;
-  let o = null;
-  let p = null;
-
-  let omatrix = []
-  //Initial Linked Objects 4-Linked Lists
-  for(x = 0 ; x < w ; x++)
-  {
-    for(y=0;y < h ; y++)
-    {
-      const o = new DataObject();
-      // if(pmatrix[y][x]==1)
-      // {
-      //   o = new DataObject();
-
-      //   omatrix.push(o);
-      // }
-      omatrix.push(o);
-    }
-  }
-
-  for(x = 1 ; x < w-1 ; x++)
-  {
-    for(y=1 ; y < h-1 ; y++)
-    {
-
-      omatrix[y][x].up = omatrix[y-1][x];
-
-      omatrix[y][x].down = omatrix[y-1][x];
-
-      omatrix[y][x].left = omatrix[y][x-1];
-
-      omatrix[y][x].right = omatrix[y][x+1];
-    }
-  }
-
-  for(x=1; x < w ; x++)
-  {
-    omatrix[0][x].left = omatrix[0][x-1];
-
-    omatrix[h-1][x].right = omatrix[y][x+1];
-
-    omatrix[0][x].up = omatrix[h-1][x];
-
-    omatrix[h-1][x].down = omatrix[0][x];
-
-  }
-
-  for(y=1; y < h ; y++)
-  {
-    omatrix[y][0].left = omatrix[y][w-1];
-
-    omatrix[y][w-1].right = omatrix[y][0];
-
-    omatrix[y][0].up = omatrix[y-1][0];
-    
-    omatrix[y][w-1].down = omatrix[y-1][0];
-
-
-  }
-
-  // edge cases 4 points uncovered
-  omatrix[0][0].left = omatrix[0][w-1];
-  omatrix[0][0].right = omatrix[0][1];
-  omatrix[0][0].up = omatrix[h-1][0];
-  omatrix[0][0].down = omatrix[1][0];
-
-  omatrix[h-1][0].left = omatrix[h-1][w-1];
-  omatrix[h-1][0].right = omatrix[h-1][1];
-  omatrix[h-1][0].up = omatrix[h-2][0];
-  omatrix[h-1][0].down = omatrix[0][0];
-
-  omatrix[h-1][w-1].left = omatrix[h-1][w-2];
-  omatrix[h-1][w-1].right = omatrix[h-1][0];
-  omatrix[h-1][w-1].up = omatrix[h-2][w-1];
-  omatrix[h-1][w-1].down = omatrix[0][w-1];
-
-  omatrix[0][w-1].left = omatrix[0][w-2];
-  omatrix[0][w-1].right = omatrix[0][0];
-  omatrix[0][w-1].up = omatrix[h-1][w-1];
-  omatrix[0][w-1].down = omatrix[1][w-1];
-
-   
-  //Disconnect 0 elements
-  for(x = 0 ; x < w ; x++)
-  {
-    for(y=0;y < h ; y++)
-    {
-      if(pmatrix[y][x]==0)
-      {
-        // pmatrix[y][x].left.left
-      }
-      
-    }
-  }
-  
-
 }

@@ -117,6 +117,7 @@
 <!-- <script type ="text/javascript" src="script.js"></script> -->
 <!-- <script type ="text/javascript" src="shapes.js"></script> -->
 <script src="js_src/definitions.js" defer></script>
+<script src="js_src/dancings_links.js" defer></script>
 <script src="js_src/helperFunctions.js"defer></script>
 <script src="js_src/styling.js" defer></script>
 <script src="js_src/main.js" defer></script>
@@ -184,7 +185,7 @@
 <table>
   <tr>
     <td>
-      <input type="button"  onclick="timeFunction(()=>solve(wcanvas,getShapes()))" value="Solve the grid"></input>
+      <input type="button"  onclick="timeFunction(()=>solve(getShapes(),wcanvas))" value="Solve the grid"></input>
       <input type="button" value="Load previous data"></input>
       <input type="button" value="Load grid from string"></input>
       <input type="button" value="Download data"></input>
@@ -193,7 +194,7 @@
   <tr>
     <td>Time to solve: <span id="timetaken"></span></td>
   </tr>
-  <tr>
+  <tr id = "thonking">
     <td>
       aaaaaaa
     </td>

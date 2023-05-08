@@ -122,20 +122,21 @@ function mix(shp1,shp2,pos)
 
 }
 //answers a10
-function solve(canvas,shapes)
+function solve(shapeIds,canvas)
 {
-  chart = totalChart(canvas,shapes);
+  const chart = totalChart(shapeIds,canvas);
 
   let id = "";
   let pmatrix = [];
-  let prow = [];
   let perms = [];
 
   let positions = [];
   let spath = [];
-  for(sP in shapes)
+
+  //generates the matrix
+  for(sP in shapeIds)
   {
-    const s = shapes[sP];
+    const s = shapeIds[sP];
     perms = generatePermutations(shape(s));
     for(permP in perms ){
       const perm = perms[permP]
@@ -143,15 +144,19 @@ function solve(canvas,shapes)
       positions = findAllPositions(perm,canvas);
       for(posP in positions)
       {
-        const pos = positions[posP] 
-        prow = equivRow(s,spath,chart,pos);
-        pmatrix.push(prow);
+        const pos = positions[posP] ;
+        pmatrix.push(equivRow(s,spath,chart,pos));
       }
     }
   }
-  console.log(pmatrix.length);
-  // library.solve(pmatrix);
+  // console.log(pmatrix);
+  
+  //unchart solutions
 
+  const solutions = solveMatrix(pmatrix);
+  // drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
+
+  return solutions;
 }
 
 // matrix[y][x] 
