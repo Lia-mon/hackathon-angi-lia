@@ -176,9 +176,9 @@ function gsolve(shapeIds,canvas){
   else{
     document.getElementById("aaaaaaa").innerHTML = `No solutions found T_T`;
   }
-  const tab = document.getElementById("thonking");
-  let cell = tab.appendChild(document.createElement('tr'));
-  cell.innerHTML = `<td><input type="button" value="Next Solution" onclick = "showNext()"></input></td>`;
+  // const tab = document.getElementById("thonking");
+  // let cell = tab.appendChild(document.createElement('tr'));
+  document.getElementById("buttonSOON").innerHTML = `<td><input type="button" value="Next Solution" onclick = "showNext()"></input></td>`;
 }
 
 // matrix[y][x] 
