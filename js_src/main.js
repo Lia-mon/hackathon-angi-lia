@@ -159,6 +159,28 @@ function solve(shapeIds,canvas)
   return solutions;
 }
 
+function gsolve(shapeIds,canvas){
+
+  const solutions = solve(shapeIds,canvas);
+  const nums = solutions.length;
+  const chart = totalChart(shapeIds,canvas);
+  gSolutions = [];
+  nSol = 0;
+  if(nums > 0){
+    drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found : ${nums}`;
+    solutions.forEach(s => {
+      gSolutions.push(unchartedSol(s,canvas,shapeIds,chart));
+    });
+  }
+  else{
+    document.getElementById("aaaaaaa").innerHTML = `No solutions found T_T`;
+  }
+  const tab = document.getElementById("thonking");
+  let cell = tab.appendChild(document.createElement('tr'));
+  cell.innerHTML = `<td><input type="button" value="Next Solution" onclick = "showNext()"></input></td>`;
+}
+
 // matrix[y][x] 
 //
 // newelem.up 

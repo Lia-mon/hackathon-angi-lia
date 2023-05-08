@@ -409,7 +409,7 @@ function unchartedSol(solution,canvas,shapeIds,chart){
   const keys = Object.keys(chart);
 
   solution.forEach(r=>{
-    console.log(r);
+    // console.log(r);
     let i =0;
     let letter = `E`;
     for(i = 0 ; i < shapeIds.length ; i++){
@@ -425,7 +425,7 @@ function unchartedSol(solution,canvas,shapeIds,chart){
     }
   }
   )
-  console.log(solcnvs)
+  // console.log(solcnvs)
   solcnvs.data = arr;
 
   return solcnvs;
@@ -456,4 +456,18 @@ function powerset(array) {
   }
   
   return subsets;
+}
+
+function showNext(){
+  nSol++;
+  if( nSol == gSolutions.length){
+    const tr = document.getElementById("thonking");
+    let cell = tr.appendChild(document.createElement('td'));
+    cell.innerHTML = `Oh no you've reached the end :'(`;
+  }  
+  if (nSol < gSolutions.length){
+    // console.log("am I being run?")
+    drawCnvs(gSolutions[nSol]);
+  }
+  return;
 }

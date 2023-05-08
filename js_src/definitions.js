@@ -191,3 +191,5 @@ class Canvas{
 let wcanvas = new Canvas(4,4) ;
 let darray = [];
 let shownShape = shape('L');
+let gSolutions = []
+let nSol = 0;
