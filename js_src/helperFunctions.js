@@ -476,13 +476,26 @@ function powerset(array) {
 function showNext(){
   nSol++;
   if( nSol == gSolutions.length){
-    const tr = document.getElementById("thonking");
-    let cell = tr.appendChild(document.createElement('td'));
-    cell.innerHTML = `Oh no you've reached the end :'(`;
+    document.getElementById("Status").innerHTML = `<td> You've reached the end! Amazing </td>`;
+    nSol --;
   }  
   if (nSol < gSolutions.length){
-    // console.log("am I being run?")
+    document.getElementById("Status").innerHTML = `<td>Solution No : ${nSol+1} </td> `;
     drawCnvs(gSolutions[nSol]);
   }
+  return;
+}
+
+function showPrevious(){
+  nSol--;
+  if( nSol == -1){
+    document.getElementById("Status").innerHTML = `<td>You've reached the start alreadt! Solution : 1 </td>`;
+    nSol ++;
+  }  
+  if (nSol < gSolutions.length && nSol > -1){
+    document.getElementById("Status").innerHTML = `<td>Solution No : ${nSol+1} </td> `;
+    drawCnvs(gSolutions[nSol]);
+  }
+
   return;
 }

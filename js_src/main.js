@@ -184,7 +184,8 @@ function gsolve(shapeIds,canvas){
   nSol = 0;
   if(nums > 0){
     drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
-    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums}`;
+    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
     solutions.forEach(s => {
       gSolutions.push(unchartedSol(s,canvas,shapeIds,chart));
     });
@@ -194,7 +195,12 @@ function gsolve(shapeIds,canvas){
   }
   // const tab = document.getElementById("thonking");
   // let cell = tab.appendChild(document.createElement('tr'));
-  document.getElementById("buttonSOON").innerHTML = `<td><input type="button" value="Next Solution" onclick = "showNext()"></input></td>`;
+  document.getElementById("buttonSOON").innerHTML = `
+    <td>
+      <input type="button" value="Previous Solution" onclick = "showPrevious()"></input>
+      <input type="button" value="Next Solution" onclick = "showNext()"></input>
+      </td>`;
+  // document.getElementById("buttonSOON").innerHTML += `<input type="button" value="Previous Solution" onclick = "showPrevious()"></input></td>`;
 }
 
 // matrix[y][x] 
