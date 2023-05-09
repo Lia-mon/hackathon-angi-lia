@@ -87,7 +87,7 @@ function drawCnvs(cnvs){
 
 function drawGridFromS(){
   const gString = document.getElementById("gString").value;
-  
+
   drawCnvs(
     toCnvs(
       readStr(gString)
@@ -406,6 +406,7 @@ function equivRow(shape_id,shape_path,chartE,pos){
   return row;
 }
 
+//Restores a solution from matrix-row form to a Canvas object
 function unchartedSol(solution,canvas,shapeIds,chart){
 
   const width = canvas.width;

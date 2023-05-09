@@ -169,11 +169,22 @@ function gsolve(shapeIds,canvas){
   const solutions = solve(shapeIds,canvas);
   const nums = solutions.length;
   const chart = totalChart(shapeIds,canvas);
+
+  //Count symmetries
+  let sym = 1;
+  if(canvas.data.toString() == flipX(canvas.data).toString())
+    sym*=2;
+  if(canvas.data.toString() == flipY(canvas.data).toString())
+    sym*=2;
+  if(canvas.data.toString() == rotateR(rotateR(canvas.data)).toString())
+    sym*=2;
+
+
   gSolutions = [];
   nSol = 0;
   if(nums > 0){
     drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
-    document.getElementById("aaaaaaa").innerHTML = `Total solutions found : ${nums}`;
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
     solutions.forEach(s => {
       gSolutions.push(unchartedSol(s,canvas,shapeIds,chart));
     });
