@@ -135,9 +135,7 @@ function shape(name) {
 
       default:
           console.log("That was an invalid letter!");
-
-          arr = [[]]             
-          ;
+          arr = [[]] ;
           return new Shape("", arr);
 
 
@@ -165,14 +163,6 @@ class Canvas{
         this.height = y;
         this.data = arr;
     }
-  // for (let k = 0; k < hl ; k++) {
-  //     // loops over the hole list
-  //     // h_k0 = hole k, x value
-  //     // h_k1 = hole k, y value
-  //     // sets the array to 'H' where there is a hole
-  //     arr[hl[k][0]][hl[k][1]]='H';
-  // }
-    
 // String created as per the specification of part A6   
   toString()
   {

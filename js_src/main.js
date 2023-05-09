@@ -124,16 +124,21 @@ function mix(shp1,shp2,pos)
 //answers a10
 function solve(shapeIds,canvas)
 {
-  const chart = totalChart(shapeIds,canvas);
-
-  let id = "";
+  //Initializing some memory
   let pmatrix = [];
   let perms = [];
 
+  
   let positions = [];
   let spath = [];
 
-  //generates the matrix
+  // n is number of pentaminoes we can use
+  // will be used later to better determine each shape :D
+  const n = Math.round(countCanvas(canvas) /5 );
+  const shapeCombos = powerset(shapeIds).filter(e=>{e.length==n}) ;
+  const chart = totalChart(shapeIds,canvas); // chart should be determined by shaped to be tried/each time
+
+  //generates the exact cover equivalent matrix
   for(sP in shapeIds)
   {
     const s = shapeIds[sP];

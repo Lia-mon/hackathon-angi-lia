@@ -36,6 +36,7 @@ function drawGrid(){
   wcanvas.width = darray[0].length;
   wcanvas.height = darray.length;
   wcanvas.data = darray;
+  printGrid();
   return grid;
 }
 //basically draws a given canvas on our grid
@@ -80,8 +81,18 @@ function drawCnvs(cnvs){
   wcanvas.width = darray[0].length;
   wcanvas.height = darray.length;
   wcanvas.data = darray;
-
+  printGrid();
   return grid;
+}
+
+function drawGridFromS(){
+  const gString = document.getElementById("gString").value;
+  
+  drawCnvs(
+    toCnvs(
+      readStr(gString)
+      )
+    );
 }
 
 function addHole(cell,x,y){
@@ -90,6 +101,7 @@ function addHole(cell,x,y){
   wcanvas.data[y-1][x-1] = 'H';
   cell.removeEventListener('click',()=>(addHole(cell,x,y)));
   cell.addEventListener('click',()=>(emptyBox(cell,x,y)))
+  printGrid();
 }
 
 function emptyBox(cell,x,y){
@@ -98,6 +110,7 @@ function emptyBox(cell,x,y){
   wcanvas.data[y-1][x-1] = 'E';
   cell.removeEventListener('click',()=>(emptyBox(cell,x,y)))
   cell.addEventListener('click',()=>(addHole(cell,x,y)))
+  printGrid();
 }
 
 function printGrid(){
@@ -282,12 +295,13 @@ function drawPermutations(result){
   if(result.length == 1){
     m = 1;
     n = 1;
+    console.log('reached');
   }
-  if(result.length < 3){
+  else if(result.length < 3){
     m = 2;
     n = 1;
   }
-  if(result.length > 4){
+  else if(result.length > 4){
      m = 4;
      n = 2;
   }
