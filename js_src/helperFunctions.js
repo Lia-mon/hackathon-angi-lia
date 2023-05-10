@@ -501,20 +501,20 @@ function showPrevious(){
 }
 
 function downloadConfig(){
-const jason = {solutions : gSolutions, currentSolution : nSol};
-const data = new Blob(
-  [JSON.stringify(jason,null,2)], {
-  type: 'application/json'
+  const jason = {solutions : gSolutions, currentSolution : nSol};
+  const data = new Blob(
+    [JSON.stringify(jason,null,2)], {
+    type: 'application/json'
 });
 
-const url = window.URL.createObjectURL(data);
+  const url = window.URL.createObjectURL(data);
 
-const link = document.createElement('a');
-link.href = url;
-link.download = 'configuration.json';
-link.click();
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'configuration.json';
+  link.click();
 
-window.URL.revokeObjectURL(url);
+  window.URL.revokeObjectURL(url);
 }
 
 function loadConfig(){
