@@ -407,7 +407,7 @@ function equivRow(shape_id,shape_path,chartE,pos){
 }
 
 //Restores a solution from matrix-row form to a Canvas object
-function unchartedSol(solution,canvas,shapeIds,chart){
+function unchartedSol(solution,canvas,chart){
 
   const width = canvas.width;
   const height = canvas.height;
@@ -427,12 +427,12 @@ function unchartedSol(solution,canvas,shapeIds,chart){
     // console.log(r);
     let i =0;
     let letter = `E`;
-    for(i = 0 ; i < shapeIds.length ; i++){
+    for(i = 0 ; i < r.length - countCanvas(canvas).empty ; i++){
       if(r[i] == 1){
         letter = keys[i];
       }
     }
-    for(i=shapeIds.length ; i < r.length ; i++){
+    for( ; i < r.length ; i++){
       if(r[i]==1){
         const xy = keys[i].split(",");
         arr[xy[1]][xy[0]] = letter;

@@ -122,43 +122,83 @@ function mix(shp1,shp2,pos)
 
 }
 //answers a10
+//Takes available shapes + a canvas 
+// and returns all solutions in the form specified
 function solve(shapeIds,canvas)
 {
   //Initializing some memory
-  let pmatrix = [];
+  const pmatrixes = [];
   let perms = [];
-
+  const solutions = [];
   
   let positions = [];
   let spath = [];
 
   // n is number of pentaminoes we can use
   // will be used later to better determine each shape :D
-  const n = Math.round(countCanvas(canvas) /5 );
-  const shapeCombos = powerset(shapeIds).filter(e=>{e.length==n}) ;
-  const chart = totalChart(shapeIds,canvas); // chart should be determined by shaped to be tried/each time
+  const n = Math.round(countCanvas(canvas)["empty"] /5 );
+
+  console.log(`Canvas shapes that can be used : ${n}`);
+
+  const shapeCombos = powerset(shapeIds).filter(e=>e.length==n) ; //no Braces V_V
+
+  // const chart = totalChart(shapeIds,canvas); // chart should be determined by shaped to be tried/each time
+  // console.log(`The shape combos ${shapeCombos.toString()}`);
+  // console.log(shapeCombos);
+
+  //TODO : fix a shape with the same symmetries as the canvas to reduce computations
+  // and only find unique up to symmetry solutions
+
+  //TODO : Use shapeCombos for smaller grids to and check all possible combos
 
   //generates the exact cover equivalent matrix
-  for(sP in shapeIds)
-  {
-    const s = shapeIds[sP];
-    perms = generatePermutations(shape(s));
-    for(permP in perms ){
-      const perm = perms[permP]
-      spath = toShapePath(perm.arr);
-      positions = findAllPositions(perm,canvas);
-      for(posP in positions)
-      {
-        const pos = positions[posP] ;
-        pmatrix.push(equivRow(s,spath,chart,pos));
+  //NEW LOOP EXPERIMENTAL
+  shapeCombos.forEach(sp=>{
+    const pmatrix = [];
+    const chart = totalChart(sp,canvas); 
+    sp.forEach(s=>{
+      perms = generatePermutations(shape(s));
+      perms.forEach(perm=>{
+        spath = toShapePath(perm.arr);
+        positions = findAllPositions(perm,canvas);
+        positions.forEach(pos=>{
+          pmatrix.push(equivRow(s,spath,chart,pos));
+        })
+      })
+    })
+    const solution = solveMatrix(pmatrix);
+    console.log(solution);
+    if(solution.length>0){
+      solution.forEach(s=>{
+        solutions.push(unchartedSol(s,canvas,chart))
+        })
       }
-    }
-  }
+    // pmatrixes.push(pmatrix,chart);
+  })
+
+  //OLD LOOP WORKING
+  //   const s = shapeIds[sP];
+  //   perms = generatePermutations(shape(s));
+  //   for(permP in perms ){
+  //     const perm = perms[permP]
+  //     spath = toShapePath(perm.arr);
+  //     positions = findAllPositions(perm,canvas);
+  //     for(posP in positions)      {
+  //       const pos = positions[posP] ;
+  //       pmatrix.push(equivRow(s,spath,chart,pos));
+  //     }
+  //   }
+  // }
+
   // console.log(pmatrix);
   
   //unchart solutions
 
-  const solutions = solveMatrix(pmatrix);
+  
+
+  // pmatrixes.forEach(matrix_combo=>{
+  //   solutions.push([solveMatrix(matrix_combo[0]),matrix_combo[1]]);
+  // })
   // drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
 
   return solutions;
@@ -166,29 +206,30 @@ function solve(shapeIds,canvas)
 
 function gsolve(shapeIds,canvas){
 
-  const solutions = solve(shapeIds,canvas);
+  // const solutions = solve(shapeIds,canvas); 
+  const solutions = solve(shapeIds,canvas); //Multi Solution try :D
   const nums = solutions.length;
-  const chart = totalChart(shapeIds,canvas);
+
+  // const chart = totalChart(shapeIds,canvas);
 
   //Count symmetries
   let sym = 1;
-  if(canvas.data.toString() == flipX(canvas.data).toString())
+  const sym_test = canvas.data.toString() ;
+  if(sym_test== flipX(canvas.data).toString())
     sym*=2;
-  if(canvas.data.toString() == flipY(canvas.data).toString())
+  if(sym_test == flipY(canvas.data).toString())
     sym*=2;
-  if(canvas.data.toString() == rotateR(rotateR(canvas.data)).toString())
+  if(sym_test == rotateR(canvas.data).toString())
     sym*=2;
 
-
-  gSolutions = [];
+  gSolutions = solutions;
   nSol = 0;
+
+
   if(nums > 0){
-    drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
-    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums}`;
-    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
-    solutions.forEach(s => {
-      gSolutions.push(unchartedSol(s,canvas,shapeIds,chart));
-    });
+    drawCnvs(gSolutions[0]);
+    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums}`;
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
   }
   else{
     document.getElementById("aaaaaaa").innerHTML = `No solutions found T_T`;
@@ -200,9 +241,8 @@ function gsolve(shapeIds,canvas){
       <input type="button" value="Previous Solution" onclick = "showPrevious()"></input>
       <input type="button" value="Next Solution" onclick = "showNext()"></input>
       </td>`;
+   document.getElementById("Status").innerHTML = `<td>Solution No : 1 </td> `;
   // document.getElementById("buttonSOON").innerHTML += `<input type="button" value="Previous Solution" onclick = "showPrevious()"></input></td>`;
+
 }
 
-// matrix[y][x] 
-//
-// newelem.up 
