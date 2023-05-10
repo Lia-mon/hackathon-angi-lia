@@ -127,80 +127,55 @@ function mix(shp1,shp2,pos)
 function solve(shapeIds,canvas)
 {
   //Initializing some memory
-  const pmatrixes = [];
-  let perms = [];
   const solutions = [];
-  
-  let positions = [];
-  let spath = [];
-
   // n is number of pentaminoes we can use
   // will be used later to better determine each shape :D
-  const n = Math.round(countCanvas(canvas)["empty"] /5 );
-
+  const empty_spots = countCanvas(canvas)["empty"];
+  if(! [5,10,15,20,25,30,35,40,45,50,55,60].some(e=>e==empty_spots)){
+    console.log("The pentaminoes cannot fit evenly into the empty spots!")
+    return solutions;
+  }
+  const n = Math.round(empty_spots /5 );
+  
   console.log(`Canvas shapes that can be used : ${n}`);
 
   const shapeCombos = powerset(shapeIds).filter(e=>e.length==n) ; //no Braces V_V
 
-  // const chart = totalChart(shapeIds,canvas); // chart should be determined by shaped to be tried/each time
-  // console.log(`The shape combos ${shapeCombos.toString()}`);
-  // console.log(shapeCombos);
-
   //TODO : fix a shape with the same symmetries as the canvas to reduce computations
   // and only find unique up to symmetry solutions
 
-  //TODO : Use shapeCombos for smaller grids to and check all possible combos
 
-  //generates the exact cover equivalent matrix
+  //generates the exact cover equivalent matrix for each combination
+  //and then solves it and uncharts it back to our grid
+  //also adds it to our solutions :)
   //NEW LOOP EXPERIMENTAL
-  shapeCombos.forEach(sp=>{
-    const pmatrix = [];
-    const chart = totalChart(sp,canvas); 
-    sp.forEach(s=>{
-      perms = generatePermutations(shape(s));
+  shapeCombos.forEach(sp=>{ //First level selects allowed combos
+    const pmatrix = []; //Initializes an exact cover matri
+    const chart = totalChart(sp,canvas); //Generates a chart for each combo
+    sp.forEach(s=>{ //Selects a shape
+      const perms = generatePermutations(shape(s)); //Generates the shape's permutations
       perms.forEach(perm=>{
-        spath = toShapePath(perm.arr);
-        positions = findAllPositions(perm,canvas);
+        //For each permutation we translate its matrix into relative path coords
+        const spath = toShapePath(perm.arr);  
+        //and also calculate all possible positions it can be placed on a canvas
+        const positions = findAllPositions(perm,canvas);  
         positions.forEach(pos=>{
-          pmatrix.push(equivRow(s,spath,chart,pos));
+          //Each position + shape combo after charted translates to a row for the exact cover matrix
+          pmatrix.push(equivRow(s,spath,chart,pos));  
         })
       })
     })
-    const solution = solveMatrix(pmatrix);
-    console.log(solution);
+    let solution = [];
+    if(pmatrix.length>0)
+      solution = solveMatrix(pmatrix);  //We solve the matrix
+
     if(solution.length>0){
       solution.forEach(s=>{
-        solutions.push(unchartedSol(s,canvas,chart))
+        //We unchart each solution for our shape combination and add it
+        solutions.push(unchartedSol(s,canvas,chart)) 
         })
       }
-    // pmatrixes.push(pmatrix,chart);
   })
-
-  //OLD LOOP WORKING
-  //   const s = shapeIds[sP];
-  //   perms = generatePermutations(shape(s));
-  //   for(permP in perms ){
-  //     const perm = perms[permP]
-  //     spath = toShapePath(perm.arr);
-  //     positions = findAllPositions(perm,canvas);
-  //     for(posP in positions)      {
-  //       const pos = positions[posP] ;
-  //       pmatrix.push(equivRow(s,spath,chart,pos));
-  //     }
-  //   }
-  // }
-
-  // console.log(pmatrix);
-  
-  //unchart solutions
-
-  
-
-  // pmatrixes.forEach(matrix_combo=>{
-  //   solutions.push([solveMatrix(matrix_combo[0]),matrix_combo[1]]);
-  // })
-  // drawCnvs(unchartedSol(solutions[0],canvas,shapeIds,chart));
-
   return solutions;
 }
 
@@ -228,8 +203,8 @@ function gsolve(shapeIds,canvas){
 
   if(nums > 0){
     drawCnvs(gSolutions[0]);
-    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums}`;
-    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums}`;
+    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
   }
   else{
     document.getElementById("aaaaaaa").innerHTML = `No solutions found T_T`;

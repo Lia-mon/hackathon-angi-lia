@@ -489,7 +489,7 @@ function showNext(){
 function showPrevious(){
   nSol--;
   if( nSol == -1){
-    document.getElementById("Status").innerHTML = `<td>You've reached the start alreadt! Solution : 1 </td>`;
+    document.getElementById("Status").innerHTML = `<td>You've reached the start already! Solution : 1 </td>`;
     nSol ++;
   }  
   if (nSol < gSolutions.length && nSol > -1){
@@ -498,4 +498,43 @@ function showPrevious(){
   }
 
   return;
+}
+
+function downloadConfig(){
+const jason = {solutions : gSolutions, currentSolution : nSol};
+const data = new Blob(
+  [JSON.stringify(jason,null,2)], {
+  type: 'application/json'
+});
+
+const url = window.URL.createObjectURL(data);
+
+const link = document.createElement('a');
+link.href = url;
+link.download = 'configuration.json';
+link.click();
+
+window.URL.revokeObjectURL(url);
+}
+
+function loadConfig(){
+  const file = document.getElementById('myfile').files[0];
+  const reader = new FileReader();
+  reader.readAsText(file, 'UTF-8');
+  reader.onload = function(evt) {
+    const data = JSON.parse(evt.target.result);
+    gSolutions = data["solutions"];
+    nSol = data["currentSolution"];
+
+    drawCnvs(gSolutions[nSol]);
+    document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${gSolutions.length}`;
+    // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
+    document.getElementById("buttonSOON").innerHTML = `
+    <td>
+      <input type="button" value="Previous Solution" onclick = "showPrevious()"></input>
+      <input type="button" value="Next Solution" onclick = "showNext()"></input>
+      </td>`;
+   document.getElementById("Status").innerHTML = `<td>Solution No : 1 </td> `;
+  }
+
 }

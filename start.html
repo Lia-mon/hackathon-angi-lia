@@ -192,10 +192,9 @@
   <tr>
     <td>
       <input type="button"  onclick="timeFunction(()=>gsolve(getShapes(),wcanvas))" value="Solve the grid">
-      <!-- <input type="button" value="Load previous data" onclick =""> -->
-      <!-- <input type="button" value="Load grid from string"></input> -->
-      <input type="button" value="Download data" on>
-      <input type="file" value="Load previous data" onclick ="" id="myfile" accept =".json">
+      <input type="button" value="Load previous data" onclick ="document.getElementById('myfile').click()">
+      <input type="button" value="Download data" onclick="downloadConfig()" on>
+      <input type="file" style="display:none" onclick ="loadConfig()" id="myfile" accept =".json">
   </td>
   </tr>
   <tr>
