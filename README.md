@@ -1,6 +1,6 @@
 # SerresHack 2023 solution - Ang-Lia Team
 
-[![3rd Winner 2023](3rd_2023.png)](https://hackathon.serrestech.gr)1
+[![3rd Winner 2023](3rd_2023.png)](https://hackathon.serrestech.gr)
 
 ## Live test
 
