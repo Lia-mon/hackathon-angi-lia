@@ -1,5 +1,7 @@
 # SerresHack 2023 solution - Ang-Lia Team
 
+Solving the [SerresHack 2023](https://hackathon.serrestech.gr) Pentomino [related topic](https://github.com/serrestech/hackathon-topic).
+
 [![3rd Winner 2023](3rd_2023.png)](https://hackathon.serrestech.gr)
 
 ## Live test
