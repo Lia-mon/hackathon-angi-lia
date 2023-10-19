@@ -250,9 +250,8 @@ function fillShapeTable(){
 
 }
 
-// Basically there's 8 different permutations, we generate all 8 and then
-// use set to reduce to unique ones
-// Uses a set to check permutations cause I am lazy :)
+// There's at most 8 different permutations, we generate all 8 and then
+// use a set to reduce to fitler to unique ones
 // it was a lot more trouble than it was worth :D
 function generatePermutations(shp){
   
@@ -281,7 +280,7 @@ function generatePermutations(shp){
 
   //Most innefficient way to do this
   //Copies so many times and does so many things V_V
-    return result;
+  return result;
 }
 
 
@@ -290,29 +289,10 @@ function generatePermutations(shp){
 // and draws it in a specific html element
 function drawPermutations(result){
   const permuts = document.getElementById("permutations");
-  let m = 2;
-  let n = 2;
-  if(result.length == 1){
-    m = 1;
-    n = 1;
-    console.log('reached');
-  }
-  else if(result.length < 3){
-    m = 2;
-    n = 1;
-  }
-  else if(result.length > 4){
-     m = 4;
-     n = 2;
-  }
-  
-  permuts.style["grid-template-columns"] = `repeat(${m}, 1fr)`
-  permuts.style["grid-template-rows"] = `repeat(${n}, 1fr)`
 
   permuts.innerHTML = "";
   result.forEach(e => {
     const tbl = permuts.appendChild(document.createElement("table"))
-    tbl.style = "border : 1px solid black"
     tbl.id = `perm${e.name}`;
     permuts.appendChild(tbl);
 
