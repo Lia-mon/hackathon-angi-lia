@@ -34,4 +34,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     })
     
   }
+
+  drawShape(shownShape);
+  drawGrid();
+
 })

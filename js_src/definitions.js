@@ -19,7 +19,6 @@ function shape(name) {
                   [0,1,0]
               ];
           return new Shape(name, arr);
-          break;
 
       case "I":
           arr =
@@ -32,7 +31,6 @@ function shape(name) {
 
               ];
           return new Shape(name, arr);
-          break;
 
       case "L":
           arr = [
@@ -42,7 +40,6 @@ function shape(name) {
               [1,1]
           ];
           return new Shape(name, arr);
-          break;
 
       case "N":
           arr = [
@@ -52,7 +49,6 @@ function shape(name) {
               [1,0]
           ];
           return new Shape(name, arr);
-          break;
 
       case "P":
           arr = [
@@ -62,7 +58,6 @@ function shape(name) {
 
           ];
           return new Shape(name, arr);
-          break;
 
       case "T":
           arr =
@@ -72,15 +67,12 @@ function shape(name) {
                   [0,1,0]
               ];
           return new Shape(name, arr);
-          break;
-
       case "U":
           arr = [
               [1,0,1],
               [1,1,1]
           ];
           return new Shape(name, arr);
-          break;
 
       case "V":
           arr =
@@ -90,8 +82,6 @@ function shape(name) {
                   [1,1,1]
               ];
           return new Shape(name, arr);
-          break;
-
       case "W":
           arr =
               [
@@ -100,7 +90,6 @@ function shape(name) {
                   [0,1,1]
               ];
           return new Shape(name, arr);
-          break;
 
       case "X":
           arr =
@@ -110,7 +99,6 @@ function shape(name) {
                   [0,1,0]
               ];
           return new Shape(name, arr);
-          break;
 
       case "Y":
           arr =
@@ -121,8 +109,6 @@ function shape(name) {
                   [0,1]
               ];
           return new Shape(name, arr);
-          break;
-
       case "Z":
           arr =
               [
@@ -131,7 +117,6 @@ function shape(name) {
                   [0,1,1]
               ];
           return new Shape(name, arr);
-          break;
 
       default:
           console.log("That was an invalid letter!");

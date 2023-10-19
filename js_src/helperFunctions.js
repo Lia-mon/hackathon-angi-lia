@@ -210,8 +210,8 @@ async function timeFunction(f){
   const end = performance.now();
   console.log(`Execution time: ${end - start} ms`);
   const tims = document.getElementById("timetaken");
-  tims.innerHTML= `${end - start} ms`;
-  return (`Execution time: ${end - start} ms`) ;
+  tims.innerHTML= `${Math.round(end - start)} ms`;
+  // return (`Execution time: ${end - start} ms`) ;
 }
 
 function drawShape(gshape,elemID = 'shapeDraw'){
@@ -456,11 +456,11 @@ function powerset(array) {
 function showNext(){
   nSol++;
   if( nSol == gSolutions.length){
-    document.getElementById("Status").innerHTML = `<td> You've reached the end! Amazing </td>`;
+    document.getElementById("Status").innerHTML = `You've reached the end! Amazing`;
     nSol --;
   }  
   if (nSol < gSolutions.length){
-    document.getElementById("Status").innerHTML = `<td>Solution No : ${nSol+1} </td> `;
+    document.getElementById("Status").innerHTML = `Solution number: ${nSol+1} `;
     drawCnvs(gSolutions[nSol]);
   }
   return;
@@ -469,11 +469,11 @@ function showNext(){
 function showPrevious(){
   nSol--;
   if( nSol == -1){
-    document.getElementById("Status").innerHTML = `<td>You've reached the start already! Solution : 1 </td>`;
+    document.getElementById("Status").innerHTML = `You've reached the start already! Solution : 1 `;
     nSol ++;
   }  
   if (nSol < gSolutions.length && nSol > -1){
-    document.getElementById("Status").innerHTML = `<td>Solution No : ${nSol+1} </td> `;
+    document.getElementById("Status").innerHTML = `Solution number: ${nSol+1}`;
     drawCnvs(gSolutions[nSol]);
   }
 
@@ -512,12 +512,10 @@ function loadConfig(){
       document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${gSolutions.length}`;
       // document.getElementById("aaaaaaa").innerHTML = `Total solutions found (includes symmetric sols) : ${nums} <br>  Unique solutions : ${nums/sym}`;
       document.getElementById("buttonSOON").innerHTML = `
-      <td>
         <input type="button" value="Previous Solution" onclick = "showPrevious()"></input>
-        <input type="button" value="Next Solution" onclick = "showNext()"></input>
-      </td>`;
+        <input type="button" value="Next Solution" onclick = "showNext()"></input>`;
 
-      document.getElementById("Status").innerHTML = `<td>Solution No : 1 </td> `;
+      document.getElementById("Status").innerHTML = `Solution number: 1 `;
     
   }});
 
