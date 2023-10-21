@@ -118,6 +118,7 @@ function createStructure(pmatrix){
   //Add some error checks here cause it breaks with an empty matrix
   const height = pmatrix.length;
   const width = pmatrix[0].length;
+  //if(height*width === 0) return null;
 
   let x = 0;
   let y = 0;
@@ -125,8 +126,8 @@ function createStructure(pmatrix){
   const root = new ColumnObject("root");
 
   //since the connections are circular we just make up our own heads for each row
-  //we connect to each head to left as search through the matrix
-  //in the end we remove these rowHeads from our structure
+  //we connect to each head to left as we search through the matrix
+  //in the end we remove the rowHeads from our structure
   const rowHeads = [];
   for(y=0; y < height ; y ++){
     const dO = new DataObject();
@@ -135,7 +136,7 @@ function createStructure(pmatrix){
 
   //go through the matrix for each column create a ColumnObject
   //We search top->down, left->right
-  //if we find a 1 we create a DataObject and append it UP from the current ColumnObject
+  //if we find a 1 we create a DataObject and append it UP/above the current ColumnObject
   //and also appendLeft to the appropriate rowHead
   for(x=0; x < width ; x ++){
     const header = new ColumnObject();
@@ -192,6 +193,7 @@ function search(k,root,sol,solutions){
   return;
 }
 
+//returns an array of all perfect cover submatrixes (subrows?)
 function solveMatrix(pmatrix){
   const rawSols = [];
   const solutions = [];

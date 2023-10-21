@@ -202,10 +202,10 @@ function flipY(twodarray){
 
 }
 
-async function timeFunction(f){
+function timeFunction(f){
   const start = performance.now();
 
-  await f();
+  f();
 
   const end = performance.now();
   console.log(`Execution time: ${end - start} ms`);
@@ -485,7 +485,7 @@ function downloadConfig(){
   const data = new Blob(
     [JSON.stringify(jason,null,2)], {
     type: 'application/json'
-});
+  });
 
   const url = window.URL.createObjectURL(data);
 
